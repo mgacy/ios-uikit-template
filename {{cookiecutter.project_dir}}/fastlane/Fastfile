@@ -1,0 +1,30 @@
+# Run tests
+lane :tests do
+  desc "Build and test application"
+
+  run_tests(scheme: "{{cookiecutter.project_name}}Tests",
+            devices: ["iPhone 11"])               
+end
+
+# Beta deployment to testflight
+lane :beta do
+  desc "Build, test and upload a new build to TestFlight"
+  
+  build_app(scheme: "{{cookiecutter.project_name}} Staging")
+  
+  rescue => exception
+    on_error(exception)
+  end  
+
+end
+
+# Release deployment to App Store
+lane :release do
+
+  build_app(scheme: "{{cookiecutter.project_name}} Production")
+  # upload_to_app_store
+end
+
+
+def on_error(exception)
+end

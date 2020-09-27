@@ -1,0 +1,11 @@
+{
+  "project_name": "Project Name",
+  "project_dir": "{{ cookiecutter.project_name | replace(' ', '-') | replace('_', '-') }}",
+  "company_name": "mgacy",
+  "bundle_identifier": "com.{{ cookiecutter.company_name | replace(' ', '-') | lower }}.{{ cookiecutter.project_name | replace(' ', '-') | lower }}",
+  "deployment_target": "13.0",
+  "run_xcode_gen": "y",
+  "year": "{% now 'utc', '%Y' %}",
+  "date": "{% now 'utc', '%D' %}",
+  "_extensions": ["jinja2_time.TimeExtension"]
+}

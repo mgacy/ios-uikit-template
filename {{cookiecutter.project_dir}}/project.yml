@@ -1,0 +1,143 @@
+﻿name: {{cookiecutter.project_name}}
+
+# Options
+options:
+  xcodeVersion: 11.0
+  # minimumXcodeGenVersion: 2.10
+  # groupSortPosition: top
+  generateEmptyDirectories: true
+  deploymentTarget: 
+    iOS: "{{cookiecutter.deployment_target}}"
+
+# Attributes
+
+# Configs
+# TODO: add?
+
+# Config Files
+
+# Settings
+
+# Targets
+targets:
+  {{cookiecutter.project_name}}:
+    type: application
+    platform: iOS
+    deploymentTarget: "{{cookiecutter.deployment_target}}"
+    configFiles:
+      Debug: {{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig
+      Release: {{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig
+    settings:
+      base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon$(SERVER_ENVIRONMENT_SUFFIX)
+    info:
+      path: {{cookiecutter.project_dir}}/Supporting/Info.plist
+      properties:
+        CFBundleDisplayName: {{cookiecutter.project_name}}$(SERVER_ENVIRONMENT_SUFFIX)
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UILaunchStoryboardName: LaunchScreen
+        UIRequiredDeviceCapabilities: [armv7]
+        ITSAppUsesNonExemptEncryption: NO
+        LSRequiresIPhoneOS: YES
+        _Configuration: $(CONFIGURATION)
+        _ServerEnvironment: $(SERVER_ENVIRONMENT)
+        CFBundleVersion: "1"
+        CFBundleShortVersionString: "0.0.1"
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: NO
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: "Default Configuration"
+                UISceneDelegateClassName: "$(PRODUCT_MODULE_NAME).SceneDelegate"
+    sources: 
+      - {{cookiecutter.project_dir}}/
+    # dependencies:
+    # preBuildScripts:
+    # postCompileScripts:
+    #   - script: |
+    #             mint run swiftlint
+    #     name: SwiftLint
+
+  {{cookiecutter.project_name}}Tests:
+    platform: iOS
+    type: bundle.unit-test
+    sources:
+      - {{cookiecutter.project_dir}}Tests/
+    dependencies:
+      - target: {{cookiecutter.project_dir}}
+    scheme:
+      testTargets:
+        - {{cookiecutter.project_dir}}Tests
+      gatherCoverageData: true   
+  {{cookiecutter.project_name}}UITests:
+    platform: iOS
+    type: bundle.ui-testing
+    sources:
+      - {{cookiecutter.project_dir}}UITests/
+    dependencies:
+      - target: {{cookiecutter.project_dir}}
+    scheme:
+      testTargets:
+        - {{cookiecutter.project_dir}}UITests
+      gatherCoverageData: true   
+
+
+# File Groups
+
+# Schemes
+schemes:
+  {{cookiecutter.project_name}} Development:
+    build:
+      preActions:
+        - script: |
+            cp -f "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Development.xcconfig" "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig"
+          settingsTarget: {{cookiecutter.project_name}}
+      targets:
+        {{cookiecutter.project_name}}: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release
+  {{cookiecutter.project_name}} Staging:
+    build:
+      preActions:
+        - script: |
+            cp -f "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Staging.xcconfig" "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig" 
+          settingsTarget: {{cookiecutter.project_name}}
+      targets:
+        {{cookiecutter.project_name}}: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release
+  {{cookiecutter.project_name}} Production:
+    build:
+      preActions:
+        - script: |
+            cp -f "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Production.xcconfig" "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig" 
+          settingsTarget: {{cookiecutter.project_name}}
+      targets:
+        {{cookiecutter.project_name}}: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release
+
+# Packages
+
+# Project References

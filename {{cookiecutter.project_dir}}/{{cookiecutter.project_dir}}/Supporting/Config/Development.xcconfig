@@ -1,0 +1,3 @@
+PRODUCT_BUNDLE_IDENTIFIER = {{cookiecutter.bundle_identifier}}-dev
+SERVER_ENVIRONMENT = dev
+SERVER_ENVIRONMENT_SUFFIX = -dev
