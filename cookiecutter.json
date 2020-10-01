@@ -1,6 +1,7 @@
 {
   "project_name": "Project Name",
   "project_dir": "{{ cookiecutter.project_name | replace(' ', '-') | replace('_', '-') }}",
+  "development_language": "en",
   "company_name": "mgacy",
   "bundle_identifier": "com.{{ cookiecutter.company_name | replace(' ', '-') | lower }}.{{ cookiecutter.project_name | replace(' ', '-') | lower }}",
   "deployment_target": "13.0",

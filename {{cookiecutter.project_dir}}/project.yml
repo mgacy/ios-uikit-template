@@ -4,8 +4,11 @@
 options:
   xcodeVersion: 11.0
   # minimumXcodeGenVersion: 2.10
-  # groupSortPosition: top
+  groupSortPosition: top
   generateEmptyDirectories: true
+  groupOrdering:
+    - pattern: '{{cookiecutter.project_dir}}'
+      order: [Application, Extensions, Protocols, Models, Services, Scenes, Resources, Supporting]
   deploymentTarget: 
     iOS: "{{cookiecutter.deployment_target}}"
 
