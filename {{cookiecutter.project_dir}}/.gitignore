@@ -35,5 +35,15 @@ Pods
 env-vars.sh
 AppSecrets.generated.swift
 /fastlane/Appfile
+/fastlane/metadata/review_information
+/fastlane/metadata/trade_representative_contact_information
 
 # Generated
+/fastlane/Preview.html
+/fastlane/README.md
+/fastlane/report.xml
+/fastlane/screenshots/screenshots.html
+**/fastlane/screenshots/en-US/*.png
+
+# IDE
+/.idea
