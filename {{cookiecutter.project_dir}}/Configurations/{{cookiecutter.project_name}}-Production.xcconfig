@@ -1,0 +1,11 @@
+//
+//  {{ cookiecutter.project_name }}-Production.xcconfig
+//  {{ cookiecutter.project_name | replace(' ', '') }}
+//
+//  Created by {{ cookiecutter.lead_dev }} on {{ cookiecutter.date }}.
+//  Copyright © {{ cookiecutter.year }} {{ cookiecutter.company_name }}. All rights reserved.
+//
+
+// #include "Pods/Target Support Files/Pods-{{ cookiecutter.project_name }}/Pods-{{ cookiecutter.project_name }}.release (production).xcconfig"
+#include "{{ cookiecutter.project_name }}-Shared.xcconfig"
+#include "Environment-Production.xcconfig"

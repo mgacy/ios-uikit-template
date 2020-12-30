@@ -4,9 +4,12 @@
 options:
   xcodeVersion: 11.0
   # minimumXcodeGenVersion: 2.10
+  defaultConfig: Release (Production)
+  developmentLanguage: {{cookiecutter.development_language}}
   groupSortPosition: top
   generateEmptyDirectories: true
   groupOrdering:
+    - order: [{{cookiecutter.project_dir}}, {{cookiecutter.project_dir}}Tests, {{cookiecutter.project_dir}}UITests, Configurations]
     - pattern: '{{cookiecutter.project_dir}}'
       order: [Application, Extensions, Protocols, Models, Services, Scenes, Resources, Supporting]
   deploymentTarget: 
@@ -15,11 +18,28 @@ options:
 # Attributes
 
 # Configs
-# TODO: add?
+configs:
+  Debug (Development): none
+  Debug (Staging): none
+  Debug (Production): none
+  Release (Development): none
+  Release (Staging): none
+  Release (Production): none
 
 # Config Files
+configFiles:
+  Debug (Development): Configurations/Project-Debug.xcconfig
+  Debug (Staging): Configurations/Project-Debug.xcconfig
+  Debug (Production): Configurations/Project-Debug.xcconfig
+  Release (Development): Configurations/Project-Release.xcconfig
+  Release (Staging): Configurations/Project-Release.xcconfig
+  Release (Production): Configurations/Project-Release.xcconfig
 
 # Settings
+# settings:
+
+# Settings Groups
+# settingGroups:
 
 # Targets
 targets:
@@ -28,11 +48,16 @@ targets:
     platform: iOS
     deploymentTarget: "{{cookiecutter.deployment_target}}"
     configFiles:
-      Debug: {{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig
-      Release: {{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig
-    settings:
-      base:
-        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon$(SERVER_ENVIRONMENT_SUFFIX)
+      Debug (Development): Configurations/{{cookiecutter.project_name}}-Development.xcconfig
+      Debug (Staging): Configurations/{{cookiecutter.project_name}}-Staging.xcconfig
+      Debug (Production): Configurations/{{cookiecutter.project_name}}-Production.xcconfig
+      Release (Development): Configurations/{{cookiecutter.project_name}}-Development.xcconfig
+      Release (Staging): Configurations/{{cookiecutter.project_name}}-Staging.xcconfig
+      Release (Production): Configurations/{{cookiecutter.project_name}}-Production.xcconfig
+    # settings:
+    #   base:
+    #     ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon$(SERVER_ENVIRONMENT_SUFFIX)
+    #   configs:
     info:
       path: {{cookiecutter.project_dir}}/Supporting/Info.plist
       properties:
@@ -46,6 +71,7 @@ targets:
         ITSAppUsesNonExemptEncryption: NO
         LSRequiresIPhoneOS: YES
         _Configuration: $(CONFIGURATION)
+        _EnvName: $(ENV_NAME)
         _ServerEnvironment: $(SERVER_ENVIRONMENT)
         CFBundleVersion: "1"
         CFBundleShortVersionString: "0.0.1"
@@ -55,6 +81,7 @@ targets:
             UIWindowSceneSessionRoleApplication:
               - UISceneConfigurationName: "Default Configuration"
                 UISceneDelegateClassName: "$(PRODUCT_MODULE_NAME).SceneDelegate"
+        # UIBackgroundModes:
     sources: 
       - {{cookiecutter.project_dir}}/
     # dependencies:
@@ -67,79 +94,93 @@ targets:
   {{cookiecutter.project_name}}Tests:
     platform: iOS
     type: bundle.unit-test
+    configFiles:
+      # TODO: or just `Configurations/{{cookiecutter.project_name}}Tests-Shared.xcconfig`?
+      Debug (Development): Configurations/{{cookiecutter.project_name}}Tests-Development.xcconfig
+      Debug (Staging): Configurations/{{cookiecutter.project_name}}Tests-Staging.xcconfig
+      Debug (Production): Configurations/{{cookiecutter.project_name}}Tests-Production.xcconfig
+      Release (Development): Configurations/{{cookiecutter.project_name}}Tests-Development.xcconfig
+      Release (Staging): Configurations/{{cookiecutter.project_name}}Tests-Staging.xcconfig
+      Release (Production): Configurations/{{cookiecutter.project_name}}Tests-Production.xcconfig
     sources:
       - {{cookiecutter.project_dir}}Tests/
     dependencies:
-      - target: {{cookiecutter.project_dir}}
-    scheme:
-      testTargets:
-        - {{cookiecutter.project_dir}}Tests
-      gatherCoverageData: true   
+      - target: {{cookiecutter.project_name}}
+ 
   {{cookiecutter.project_name}}UITests:
     platform: iOS
     type: bundle.ui-testing
+    configFiles:
+      # TODO: or just `Configurations/{{cookiecutter.project_name}}UITests-Shared.xcconfig`?
+      Debug (Development): Configurations/{{cookiecutter.project_name}}UITests-Development.xcconfig
+      Debug (Staging): Configurations/{{cookiecutter.project_name}}UITests-Staging.xcconfig
+      Debug (Production): Configurations/{{cookiecutter.project_name}}UITests-Production.xcconfig
+      Release (Development): Configurations/{{cookiecutter.project_name}}UITests-Development.xcconfig
+      Release (Staging): Configurations/{{cookiecutter.project_name}}UITests-Staging.xcconfig
+      Release (Production): Configurations/{{cookiecutter.project_name}}UITests-Production.xcconfig
     sources:
       - {{cookiecutter.project_dir}}UITests/
     dependencies:
-      - target: {{cookiecutter.project_dir}}
-    scheme:
-      testTargets:
-        - {{cookiecutter.project_dir}}UITests
-      gatherCoverageData: true   
+      - target: {{cookiecutter.project_name}}
 
 
 # File Groups
+fileGroups:
+  - Configurations
 
 # Schemes
 schemes:
   {{cookiecutter.project_name}} Development:
     build:
-      preActions:
-        - script: |
-            cp -f "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Development.xcconfig" "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig"
-          settingsTarget: {{cookiecutter.project_name}}
       targets:
         {{cookiecutter.project_name}}: all
+        {{cookiecutter.project_name}}Tests: [test]
+        {{cookiecutter.project_name}}UITests: [test]
     run:
-      config: Debug
+      config: Debug (Development)
+    test:
+      config: Debug (Development)
+      gatherCoverageData: true
     profile:
-      config: Release
+      config: Release (Development)
     analyze:
-      config: Release
+      config: Debug (Development)
     archive:
-      config: Release
+      config: Release (Development)
   {{cookiecutter.project_name}} Staging:
     build:
-      preActions:
-        - script: |
-            cp -f "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Staging.xcconfig" "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig" 
-          settingsTarget: {{cookiecutter.project_name}}
       targets:
         {{cookiecutter.project_name}}: all
+        {{cookiecutter.project_name}}Tests: [test]
+        {{cookiecutter.project_name}}UITests: [test]
     run:
-      config: Debug
+      config: Debug (Staging)
+    test:
+      config: Debug (Staging)
+      gatherCoverageData: true
     profile:
-      config: Release
+      config: Release (Staging)
     analyze:
-      config: Release
+      config: Debug (Staging)
     archive:
-      config: Release
+      config: Release (Staging)
   {{cookiecutter.project_name}} Production:
     build:
-      preActions:
-        - script: |
-            cp -f "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Production.xcconfig" "${PROJECT_DIR}/{{cookiecutter.project_dir}}/Supporting/Config/Configuration.xcconfig" 
-          settingsTarget: {{cookiecutter.project_name}}
       targets:
         {{cookiecutter.project_name}}: all
+        {{cookiecutter.project_name}}Tests: [test]
+        {{cookiecutter.project_name}}UITests: [test]
     run:
-      config: Debug
+      config: Debug (Production)
+    test:
+      config: Debug (Production)
+      gatherCoverageData: true
     profile:
-      config: Release
+      config: Release (Production)
     analyze:
-      config: Release
+      config: Debug (Production)
     archive:
-      config: Release
+      config: Release (Production)
 
 # Packages
 

@@ -1,0 +1,16 @@
+//
+//  Environment-Production.xcconfig
+//  {{ cookiecutter.project_name | replace(' ', '') }}
+//
+//  Created by {{ cookiecutter.lead_dev }} on {{ cookiecutter.date }}.
+//  Copyright © {{ cookiecutter.year }} {{ cookiecutter.company_name }}. All rights reserved.
+//
+
+#include "Environment-Shared.xcconfig"
+
+// MARK: - Custom
+
+// Environment Name
+//
+// Name of environment.
+ENV_NAME = production
