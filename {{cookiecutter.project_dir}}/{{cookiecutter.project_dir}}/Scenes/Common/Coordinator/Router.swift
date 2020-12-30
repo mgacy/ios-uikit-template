@@ -52,7 +52,7 @@ final public class Router: NSObject, RouterProtocol, UINavigationControllerDeleg
         navigationController.pushViewController(controller, animated: animated)
     }
 
-    public func popModule(animated: Bool = true)  {
+    public func popModule(animated: Bool = true) {
         if let controller = navigationController.popViewController(animated: animated) {
             runCompletion(for: controller)
         }

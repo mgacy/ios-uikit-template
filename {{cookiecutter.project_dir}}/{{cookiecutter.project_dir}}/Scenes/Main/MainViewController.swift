@@ -11,14 +11,14 @@ import UIKit
 class MainViewController: UIViewController {
 
     // MARK: - Subviews
-    
+
     private let label: UILabel = {
         let view = UILabel()
         view.text = "This is just a test"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     // MARK: - Lifecycle
 
     //required init?(coder aDecoder: NSCoder) {

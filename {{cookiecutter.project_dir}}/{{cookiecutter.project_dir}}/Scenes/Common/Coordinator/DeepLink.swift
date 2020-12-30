@@ -12,8 +12,7 @@ enum DeepLink {
     /// Show onboarding scene.
     case onboarding
     /// Respond to launch from remote notification.
-    case remoteNotification([String : AnyObject])
-
+    case remoteNotification([String: AnyObject])
 
     static func build(with dict: [String: AnyObject]?) -> DeepLink? {
         guard let id = dict?["launch_id"] as? String else { return nil }
@@ -51,7 +50,6 @@ enum DeepLink {
             return nil
         }
     }
-
 }
 
 // MARK: - Constants

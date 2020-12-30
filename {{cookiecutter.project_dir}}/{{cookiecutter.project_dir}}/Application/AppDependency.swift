@@ -10,7 +10,7 @@ import Foundation
 
 class AppDependency: HasFoo {
     let foo: Bool
-    
+
     init() {
         foo = true
     }
