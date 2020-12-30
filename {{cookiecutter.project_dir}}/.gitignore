@@ -32,6 +32,8 @@ xcuserdata/
 Pods
 
 # Secrets
+env-vars.sh
+AppSecrets.generated.swift
 /fastlane/Appfile
 
 # Generated

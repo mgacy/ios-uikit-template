@@ -8,5 +8,8 @@
   "run_xcode_gen": "y",
   "year": "{% now 'utc', '%Y' %}",
   "date": "{% now 'utc', '%D' %}",
-  "_extensions": ["jinja2_time.TimeExtension"]
+  "_extensions": ["jinja2_time.TimeExtension"],
+  "_copy_without_render": [
+    "*.stencil"
+  ]
 }
