@@ -2,7 +2,7 @@
 
 # Options
 options:
-  xcodeVersion: 11.0
+  xcodeVersion: 12.0
   # minimumXcodeGenVersion: 2.10
   defaultConfig: Release (Production)
   developmentLanguage: {{cookiecutter.development_language}}
@@ -141,6 +141,13 @@ schemes:
     test:
       config: Debug (Development)
       gatherCoverageData: true
+      # coverageTargets:
+      #   - {{cookiecutter.project_name}}
+      # targets:
+      #   - name: {{cookiecutter.project_name}}Tests
+      #     parallelizable: false # false is the default
+      #   - name: {{cookiecutter.project_name}}UITests
+      # environmentVariables:
     profile:
       config: Release (Development)
     analyze:
@@ -183,5 +190,6 @@ schemes:
       config: Release (Production)
 
 # Packages
+# packages:
 
 # Project References

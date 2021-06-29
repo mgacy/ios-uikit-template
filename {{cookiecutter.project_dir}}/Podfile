@@ -1,6 +1,9 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '13.0'
 
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
 # Basic
 def basic_pods
     # ...
@@ -8,12 +11,12 @@ end
 
 # Testing
 def test_pods
-  pod 'SnapshotTesting', '~> 1.8.2'
+  pod 'SnapshotTesting', '~> 1.9'
 end
 
 # UITesting
 def ui_test_pods
-  pod 'Swifter', '~> 1.5.0-rc.1'
+  pod 'Swifter', '~> 1.5.0'
 end
 
 target '{{cookiecutter.project_name}}' do
