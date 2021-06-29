@@ -8,6 +8,7 @@
   "lead_email": "lead@example.com",
   "deployment_target": "13.0",
   "run_xcode_gen": "y",
+  "gitRepository": "https://github.com/mgacy/ios-uikit-template.git",
   "year": "{% now 'utc', '%Y' %}",
   "date": "{% now 'utc', '%D' %}",
   "_extensions": ["jinja2_time.TimeExtension"],

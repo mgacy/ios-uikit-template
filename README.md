@@ -1,25 +1,21 @@
-﻿# Project Title
+﻿# ios-uikit-template
 
-A short description
+Template project for bootstrapping iOS applications
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
+Install [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/index.html) and [XcodeGen](https://github.com/yonaskolb/XcodeGen) in order to create a new project from this template:
 
 ```sh
 brew install cookiecutter
 brew install xcodegen
 ```
 
-...
-
-### Installation
-
-... 
-
 ## Usage
 
-...
+```sh
+cookiecutter https://github.com/mgacy/ios-uikit-template.git
+````
 
 ## Acknowledgements
 
