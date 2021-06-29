@@ -1,28 +1,93 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
 # Run tests
 lane :tests do
   desc "Build and test application"
 
   run_tests(scheme: "{{cookiecutter.project_name}}Tests",
-            devices: ["iPhone 11"])               
+            devices: ["iPhone 11"])
 end
 
 # Beta deployment to testflight
 lane :beta do
   desc "Build, test and upload a new build to TestFlight"
-  
-  build_app(scheme: "{{cookiecutter.project_name}} Staging")
-  
+
+  # Ensure that your git status is not dirty
+  ensure_git_status_clean
+
+  # https://docs.fastlane.tools/actions/gym/#parameters
+  build_app(
+    scheme: "{{cookiecutter.project_name}} Staging",
+    silent: true,                               # Hide all information that's not necessary while building
+    suppress_xcode_output: true,                # Suppress output of `xcodebuild` to stdout (it's saved in `buildlog_path`)
+    clean: true,                                # Clean the project before building it
+    include_symbols: true
+    # export_xcargs: "-allowProvisioningUpdates"  # Enable automatic signing via `xcodebuild`
+  )
+
+  # changelog = File.read("./testflight_changelog.txt")
+
+  # https://docs.fastlane.tools/actions/upload_to_testflight/#parameters
+  upload_to_testflight(
+    # beta_app_feedback_email: "",
+    # beta_app_description: "",
+    # changelog: changelog,
+    # distribute_external: true,
+    # groups: "Friends and Family",
+    # skip_submission: true # Default: `false`
+  )
+
   rescue => exception
     on_error(exception)
-  end  
+  end
 
 end
 
 # Release deployment to App Store
 lane :release do
 
-  build_app(scheme: "{{cookiecutter.project_name}} Production")
-  # upload_to_app_store
+  # Ensure that your git status is not dirty
+  ensure_git_status_clean
+
+  # Ensure push notification certificate valid for 2+ weeks or create new one
+  # get_push_certificate
+
+  # https://docs.fastlane.tools/actions/gym/#parameters
+  build_app(
+    scheme: "{{cookiecutter.project_name}} Production",
+    silent: true,
+    suppress_xcode_output: true,                # Suppress output of `xcodebuild` to stdout (it's saved in `buildlog_path`)
+    clean: true,
+    # include_bitcode: true,
+    include_symbols: true
+    # export_xcargs: "-allowProvisioningUpdates"  # Enable automatic signing via `xcodebuild`
+  )
+
+  # https://docs.fastlane.tools/actions/upload_to_app_store/#parameters
+  upload_to_app_store(
+    # app_rating_config_path: "./fastlane/metadata/rating_config.json",
+    # overwrite_screenshots: true,
+    submit_for_review: false,
+    automatic_release: false,
+    force: true,                                # Skip HTML preview verification before actual upload
+    skip_screenshots: true,
+    # skip_metadata: true
+  )
 end
 
 
