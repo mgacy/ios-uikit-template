@@ -14,9 +14,9 @@
 
 
 // Debug Information Format
-// 
+//
 // The type of debug information to produce.
-// 
+//
 // * DWARF: Object files and linked products will use DWARF as the debug information
 // format. [dwarf]
 // * DWARF with dSYM File: Object files and linked products will use DWARF as the debug
@@ -39,7 +39,7 @@ ENABLE_TESTABILITY = YES
 
 
 // Enable Foundation Assertions
-// 
+//
 // Controls whether assertion logic provided by `NSAssert` is included in the
 // preprocessed source code or is elided during preprocessing. Disabling assertions can
 // improve code performance.
@@ -63,9 +63,9 @@ ONLY_ACTIVE_ARCH = YES
 
 
 // Swift Compilation Mode
-// 
+//
 // This setting controls the way the Swift files in a module are rebuilt.
-// 
+//
 // * Incremental: Only rebuild the Swift source files in the module that are out of
 // date, running multiple compiler processes as needed.
 // * Whole Module: Always rebuild all Swift source files in the module, in a single
@@ -76,7 +76,7 @@ SWIFT_COMPILATION_MODE = wholemodule
 
 
 // Swift Optimization Level
-// 
+//
 // * None: Compile without any optimization. [-Onone]
 // * Optimize for Speed: [-O]
 // * Optimize for Size: [-Osize]
@@ -87,7 +87,7 @@ SWIFT_OPTIMIZATION_LEVEL = -O
 
 
 // Validate Built Product
-// 
+//
 // If enabled, perform validation checks on the product as part of the build process.
 
 VALIDATE_PRODUCT = YES
