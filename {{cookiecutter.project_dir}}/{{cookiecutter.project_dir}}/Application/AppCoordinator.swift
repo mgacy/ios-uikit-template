@@ -36,7 +36,7 @@ class AppCoordinator: BaseCoordinator {
 
     override func start(with deepLink: DeepLink?) {
         if let deepLink = deepLink {
-            //log.debug("\(#function) - \(deepLink)")
+            // log.debug("\(#function) - \(deepLink)")
             switch deepLink {
             default:
                 startChildren(with: deepLink)
@@ -55,9 +55,8 @@ class AppCoordinator: BaseCoordinator {
     }
 
     // MARK: - Flows
-
+    /*
     private func showOnboarding() {
-        /*
         let coordinator = OnboardingCoordinator(window: window, dependencies: dependencies)
         coordinator.onFinishFlow = { [weak self, weak coordinator] result in
             if let strongCoordinator = coordinator {
@@ -67,9 +66,8 @@ class AppCoordinator: BaseCoordinator {
         }
         store(coordinator: coordinator)
         coordinator.start()
-        */
     }
-
+    */
     private func showMain() {
         let mainCoordinator = MainCoordinator(window: window, dependencies: dependencies)
         store(coordinator: mainCoordinator)

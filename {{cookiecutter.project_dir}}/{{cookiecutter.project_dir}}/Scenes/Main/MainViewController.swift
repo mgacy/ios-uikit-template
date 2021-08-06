@@ -9,6 +9,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    typealias Dependencies = HasFoo
 
     // MARK: - Subviews
 
@@ -21,15 +22,20 @@ class MainViewController: UIViewController {
 
     // MARK: - Lifecycle
 
-    //required init?(coder aDecoder: NSCoder) {
-    //    fatalError("init(coder:) has not been implemented")
-    //}
+    init(dependencies: Dependencies) {
+        // ...
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     //override func loadView() {
     //    let view = UIView()
-    //    
+    //
     //    // ...
-    //    
+    //
     //    self.view = view
     //    setupConstraints()
     //}
@@ -48,13 +54,13 @@ class MainViewController: UIViewController {
     // MARK: - View Methods
 
     func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         // ...
         view.addSubview(label)
     }
 
     func setupConstraints() {
-        let guide = view.safeAreaLayoutGuide
+        let guide = view.layoutMarginsGuide
         NSLayoutConstraint.activate([
             //view.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 0.0),
             //view.topAnchor.constraint(equalTo: guide.bottomAnchor, constant: 0.0),

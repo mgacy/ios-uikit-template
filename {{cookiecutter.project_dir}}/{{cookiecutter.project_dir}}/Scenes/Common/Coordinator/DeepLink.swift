@@ -13,6 +13,12 @@ enum DeepLink {
     case onboarding
     /// Respond to launch from remote notification.
     case remoteNotification([String: AnyObject])
+    /// Show share sheet.
+    case share(title: String, url: URL)
+}
+
+// MARK: - Builders
+extension DeepLink {
 
     static func build(with dict: [String: AnyObject]?) -> DeepLink? {
         guard let id = dict?["launch_id"] as? String else { return nil }
@@ -42,11 +48,11 @@ enum DeepLink {
     }
 
     static func build(with notificationResponse: UNNotificationResponse) -> DeepLink? {
-        let userInfo = notificationResponse.notification.request.content.userInfo
+        // let userInfo = notificationResponse.notification.request.content.userInfo
         switch notificationResponse.notification.request.content.categoryIdentifier {
         default:
-            let categoryID = notificationResponse.notification.request.content.categoryIdentifier
-            //log.warning("\(#function) - unknown category: \(categoryID)")
+            // let categoryID = notificationResponse.notification.request.content.categoryIdentifier
+            // log.warning("\(#function) - unknown category: \(categoryID)")
             return nil
         }
     }
