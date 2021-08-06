@@ -58,13 +58,27 @@ extension UICollectionView {
     }
 
     func dequeueReusableSupplementaryView<T: UICollectionReusableView>(ofKind kind: String, for indexPath: IndexPath) -> T {
-        guard let section = dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: T.reuseID, 
+        guard let section = dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: T.reuseID,
                                                              for: indexPath) as? T else {
             fatalError("Unable to dequeue reusable supplementary view: \(T.self)")
         }
         return section
     }
 
+}
+
+extension UICollectionViewLayout {
+
+    func register<T: Reusable>(viewType: T.Type) {
+        register(viewType, forDecorationViewOfKind: T.reuseID)
+    }
+}
+
+extension NSCollectionLayoutDecorationItem {
+
+    class func background<T: Reusable>(elementType: T.Type) -> Self {
+        return background(elementKind: T.reuseID)
+    }
 }
 
 // MARK: - Table View

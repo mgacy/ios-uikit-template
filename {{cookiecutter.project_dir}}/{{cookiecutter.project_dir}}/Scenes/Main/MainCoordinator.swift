@@ -40,7 +40,7 @@ final class MainCoordinator: BaseCoordinator {
     // MARK: Flows
 
     private func showMain() {
-        let viewController = MainViewController()
+        let viewController = MainViewController(dependencies: dependencies)
         //viewController.dismissalDelegate = self
         router.setRootModule(viewController, hideBar: false)
         window.rootViewController = router.toPresent()

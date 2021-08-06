@@ -12,22 +12,21 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    static var appCoordinator: AppCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene
         // `scene`.
         // This delegate does not imply the connecting scene or session are new (see
         // `application:configurationForConnectingSceneSession` instead).
-
-        // DEFAULT
-        //guard let _ = (scene as? UIWindowScene) else { return }
-
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = MainViewController() // Your initial view controller.
-
-        window.makeKeyAndVisible()
+        if Self.appCoordinator == nil {
+            let coordinator = AppCoordinator(window: window)
+            coordinator.start()
+            Self.appCoordinator = coordinator
+        }
         self.window = window
     }
 
@@ -35,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not neccessarily discarded (see 
+        // The scene may re-connect later, as its session was not neccessarily discarded (see
         // `application:didDiscardSceneSessions` instead).
     }
 

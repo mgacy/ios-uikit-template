@@ -1,6 +1,6 @@
 //
 //  Router.swift
-//  Adequate
+//  {{ cookiecutter.project_name | replace(' ', '') }}
 //
 //  https://github.com/imaccallum/CoordinatorKit
 //
@@ -61,6 +61,7 @@ final public class Router: NSObject, RouterProtocol, UINavigationControllerDeleg
     public func setRootModule(_ module: Presentable, hideBar: Bool = false) {
         // Call all completions so all coordinators can be deallocated
         completions.forEach { $0.value() }
+        completions = [:]
         navigationController.setViewControllers([module.toPresent()], animated: false)
         navigationController.isNavigationBarHidden = hideBar
     }
@@ -68,6 +69,7 @@ final public class Router: NSObject, RouterProtocol, UINavigationControllerDeleg
     // public func setRootModule(_ module: Presentable, navBarStyle: NavBarStyle = .normal) {
     //     // Call all completions so all coordinators can be deallocated
     //     completions.forEach { $0.value() }
+    //     completions = [:]
     //     navigationController.setViewControllers([module.toPresent()], animated: false)
     //     navigationController.applyStyle(navBarStyle)
     // }

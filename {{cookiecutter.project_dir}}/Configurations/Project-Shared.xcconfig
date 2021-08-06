@@ -11,7 +11,7 @@
 //
 // This setting defines the current version of the project. The value must be a integer or
 // floating point number, such as `57` or `365.8`.
-CURRENT_PROJECT_VERSION = 1;
+CURRENT_PROJECT_VERSION = 1
 
 
 
